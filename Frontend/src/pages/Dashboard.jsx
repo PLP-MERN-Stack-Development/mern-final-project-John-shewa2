@@ -11,7 +11,7 @@ const Dashboard = () => {
   const { user } = useContext(AuthContext);
   const location = useLocation();
 
-  const [successMessage, setSuccessMessage] = useState(null)
+  const [_successMessage, setSuccessMessage] = useState(null)
 
   useEffect(() => {
     if (location.state && location.state.message) {

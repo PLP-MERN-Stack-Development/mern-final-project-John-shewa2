@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react'; 
+import React, { useState, useEffect, useContext, use } from 'react'; 
 import { useParams } from 'react-router-dom';
 import { getLoanById } from '../api/loanApi';
 import AuthContext from '../context/AuthContext'; 
@@ -31,8 +31,7 @@ const LoanDetails = () => {
   const [error, setError] = useState(null);
   const { id } = useParams();
   
-  const { user } = useContext(AuthContext); 
-
+  useffect(() => {
   const fetchLoan = async () => {
     try {
       setLoading(true);
@@ -48,7 +47,6 @@ const LoanDetails = () => {
     }
   };
 
-  useEffect(() => {
     if (id) {
       fetchLoan();
     }

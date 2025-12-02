@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { getAllLoans, updateLoanStatus } from '../api/loanApi'; 
 import { Link } from 'react-router-dom';
 
@@ -27,7 +27,7 @@ const AdminLoanList = ({ status }) => {
   
 
   // Function to fetch loans based on the status prop
-  const fetchLoans = async () => {
+  const fetchLoans = useCallback(async () => {
     try {
       setLoading(true);
       const { data } = await getAllLoans(status);
@@ -38,11 +38,11 @@ const AdminLoanList = ({ status }) => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [status]);
 
   useEffect(() => {
     fetchLoans();
-  }, [status]); 
+  }, [fetchLoans]); 
 
   const handleUpdateStatus = async (id, newStatus) => {
     setActionLoading(id);

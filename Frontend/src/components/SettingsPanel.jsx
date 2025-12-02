@@ -13,7 +13,7 @@ const SettingsPanel = () => {
       try {
         const { data } = await getInterestRate();
         setRate(data.interestRate);
-      } catch (err) {
+      } catch (_err) {
         setError('Failed to load current rate.');
       }
     };

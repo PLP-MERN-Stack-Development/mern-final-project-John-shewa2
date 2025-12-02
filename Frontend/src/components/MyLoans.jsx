@@ -116,10 +116,6 @@ const MyLoans = () => {
                 );
                 nextPaymentDate = nextPayment ? nextPayment.dueDate : null;
                 
-                const lastPaidPayment = [...loan.repaymentSchedule]
-                  .reverse()
-                  .find((p) => p.status === 'paid');
-                
                 const totalPaid = loan.repaymentSchedule.reduce(
                   (sum, p) => sum + p.amountPaid,
                   0

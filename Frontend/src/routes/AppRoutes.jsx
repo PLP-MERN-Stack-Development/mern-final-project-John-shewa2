@@ -14,7 +14,6 @@ import SettingsPage from "../pages/SettingsPage";
 import SubmitPaymentPage from "../pages/SubmitPaymentPage"; 
 
 const AppRoutes = () => {
-  const { isAuthenticated, user } = useContext(AuthContext);
 
   const HomeRedirect = () => {
     return <Navigate to="/login" replace />;

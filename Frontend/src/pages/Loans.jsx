@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useCallback } from "react";
 import api from "../api/axios";
 import { AuthContext } from "../context/AuthContext";
 import AdminDashboard from "./AdminDashboard";
@@ -8,12 +8,12 @@ export default function Loans() {
   const [loans, setLoans] = useState([]);
   const [amount, setAmount] = useState("");
   const [termMonths, setTermMonths] = useState("");
-  const [interestRate, setInterestRate] = useState(7);
+  const [interestRate] = useState(7);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [showLoans, setShowLoans] = useState(false); 
 
-  const fetchLoans = async () => {
+  const fetchLoans = useCallback(async () => {
     try {
       const res = await api.get("/loans", {
         headers: { Authorization: `Bearer ${token}` },
@@ -33,11 +33,11 @@ export default function Loans() {
     } catch (err) {
       console.error(err);
     }
-  };
+  }, [token, user.role, user._id, user.id]);
 
   useEffect(() => {
     if (token) fetchLoans();
-  }, [token]);
+  }, [token, fetchLoans]);
   const handleShowLoans = async () => {
     setShowLoans(true);
     await fetchLoans();
