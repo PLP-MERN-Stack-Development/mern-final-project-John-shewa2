@@ -68,6 +68,7 @@ machine:
 
 ## 🚀 Live Demo: 
 visit: 'https://fin-grow-phi.vercel.app/login'
+Video Demo: 'https://www.loom.com/share/70f92dae46af4408a573b0135f844675'
 
 ##  Getting Started
 
