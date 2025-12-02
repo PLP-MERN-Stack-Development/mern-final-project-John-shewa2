@@ -1,0 +1,83 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  # ----------------------------------------
+  # JOB 1: BACKEND TESTING
+  # yb----------------------------------------
+  backend-test:
+    runs-on: ubuntu-latest
+    
+    defaults:
+      run:
+        working-directory: ./Backend
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+        mongodb-version: ['6.0']
+
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+        cache-dependency-path: Backend/package-lock.json
+
+    - name: Start MongoDB
+      uses: supercharge/mongodb-github-action@1.10.0
+      with:
+        mongodb-version: ${{ matrix.mongodb-version }}
+
+    - name: Install Backend Dependencies
+      run: npm ci
+
+    - name: Run Backend Tests
+      run: npm test
+      env:
+        JWT_SECRET: "supersecret_test_key"
+        MONGO_URI: "mongodb://localhost:27017/test_db"
+
+  # ----------------------------------------
+  # JOB 2: FRONTEND TESTING & BUILD
+  # ----------------------------------------
+  frontend-test-build:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./Frontend
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+        cache-dependency-path: Frontend/package-lock.json
+
+    - name: Install Frontend Dependencies
+      run: npm ci
+
+    - name: Run Linting
+      run: npm run lint
+
+    - name: Run Frontend Tests
+      run: npm test -- --run # "--run" makes Vitest run once and exit, not watch
+
+    - name: Build Frontend
+      run: npm run build
