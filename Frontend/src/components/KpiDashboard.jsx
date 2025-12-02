@@ -73,7 +73,7 @@ const KpiDashboard = () => {
         const { data } = await getLoanStats();
         setStats(data);
         setError(null);
-      } catch (_err) {
+      } catch {
         setError('Failed to load statistics.');
       } finally {
         setLoading(false);

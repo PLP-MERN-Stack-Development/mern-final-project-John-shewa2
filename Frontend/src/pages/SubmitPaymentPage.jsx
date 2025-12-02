@@ -21,7 +21,7 @@ const SubmitPaymentPage = () => {
         if (activeLoans.length === 1) {
           setSelectedLoanId(activeLoans[0]._id);
         }
-      } catch (_err) {
+      } catch {
         setError('Failed to fetch your active loans.');
       } finally {
         setLoading(false);

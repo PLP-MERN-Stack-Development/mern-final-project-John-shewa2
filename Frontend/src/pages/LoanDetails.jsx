@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useContext, use } from 'react'; 
+import React, { useState, useEffect } from 'react'; 
 import { useParams } from 'react-router-dom';
 import { getLoanById } from '../api/loanApi';
-import AuthContext from '../context/AuthContext'; 
 
 const formatDate = (dateString) => {
   if (!dateString) return 'N/A';
@@ -31,7 +30,7 @@ const LoanDetails = () => {
   const [error, setError] = useState(null);
   const { id } = useParams();
   
-  useffect(() => {
+  useEffect(() => {
   const fetchLoan = async () => {
     try {
       setLoading(true);

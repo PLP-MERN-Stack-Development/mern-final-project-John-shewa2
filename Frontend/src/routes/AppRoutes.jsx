@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Dashboard from '../pages/Dashboard';
 import Login from "../pages/Login";
@@ -6,7 +6,6 @@ import Register from "../pages/Register";
 import AdminDashboard from "../pages/AdminDashboard";
 import LoanDetails from "../pages/LoanDetails";
 import Navbar from "../components/Navbar";
-import AuthContext from "../context/AuthContext";
 import { ProtectedRoute, AdminRoute } from "./ProtectedRoutes";
 import CalculatorPage from "../pages/CalculatorPage";
 import PaymentApprovalPage from "../pages/PaymentApprovalPage";
